@@ -115,7 +115,7 @@ SignSpeakAI/
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/yourusername/SignSpeakAI.git
+git clone https://github.com/keerthana-m-19/SignSpeakAI
 cd SignSpeakAI
 
 # 2. Create a virtual environment (recommended)
