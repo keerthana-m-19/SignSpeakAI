@@ -152,8 +152,8 @@ This runs a **two-phase transfer learning** pipeline:
 
 | Phase | Epochs | Learning Rate | Description |
 |---|---|---|---|
-| Phase 1: Feature Extraction | 20 | 0.001 | MobileNetV2 base frozen, only classification head trains |
-| Phase 2: Fine-Tuning | 10 | 0.0001 | Top 30 base layers unfrozen for end-to-end refinement |
+| Phase 1: Feature Extraction | 5 | 0.001 | MobileNetV2 base frozen, only classification head trains |
+| Phase 2: Fine-Tuning | 3 | 0.0001 | Top 30 base layers unfrozen for end-to-end refinement |
 
 **Data augmentation** applied during training:
 - Random horizontal flip
