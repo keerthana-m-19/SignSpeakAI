@@ -9,7 +9,6 @@ using transfer learning with a two-phase approach:
 Usage:
     python -m src.training.train_model
 """
-
 import os
 import sys
 import numpy as np
@@ -25,18 +24,20 @@ from tensorflow.keras import layers, callbacks
 # ============================================================
 
 IMG_SIZE = (224, 224)
-BATCH_SIZE = 32
-EPOCHS = 20
-FINE_TUNE_EPOCHS = 10
+BATCH_SIZE = 16
+EPOCHS = 5
+FINE_TUNE_EPOCHS = 3
 LEARNING_RATE = 1e-3
 FINE_TUNE_LR = 1e-4
 FINE_TUNE_LAYERS = 30  # Number of top base layers to unfreeze
 
-DATASET_DIR = "dataset/train"
-MODEL_SAVE_PATH = "models/sign_model.keras"
-CLASS_NAMES_PATH = "models/class_names.npy"
-HISTORY_PLOT_PATH = "models/training_history.png"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+DATASET_DIR = os.path.join(BASE_DIR, "dataset", "train")
+MODEL_DIR = os.path.join(BASE_DIR, "models")
 
+MODEL_SAVE_PATH = os.path.join(MODEL_DIR, "sign_model.keras")
+CLASS_NAMES_PATH = os.path.join(MODEL_DIR, "class_names.npy")
+HISTORY_PLOT_PATH = os.path.join(MODEL_DIR, "training_history.png")
 # ============================================================
 # LOAD DATASET
 # ============================================================
@@ -92,8 +93,8 @@ print("\n[2/6] Optimizing data pipeline...")
 
 AUTOTUNE = tf.data.AUTOTUNE
 
-train_ds = train_ds.cache().shuffle(1000).prefetch(buffer_size=AUTOTUNE)
-val_ds = val_ds.cache().prefetch(buffer_size=AUTOTUNE)
+train_ds = train_ds.shuffle(500).prefetch(AUTOTUNE)
+val_ds = val_ds.prefetch(AUTOTUNE)
 
 # ============================================================
 # DATA AUGMENTATION
@@ -334,4 +335,5 @@ print(f"  Final Validation Loss:     {final_val_loss:.4f}")
 print(f"  Model saved to:            {MODEL_SAVE_PATH}")
 print(f"  Class names saved to:      {CLASS_NAMES_PATH}")
 print(f"  Training plot saved to:    {HISTORY_PLOT_PATH}")
+print("=" * 60 + "\n")
 print("=" * 60 + "\n")
